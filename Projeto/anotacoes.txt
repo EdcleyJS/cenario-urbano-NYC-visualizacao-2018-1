@@ -1,0 +1,21 @@
+YearBuilt G OK OK
+YearAlter1 G OK OK
+YearAlter2 G OK OK
+SHAPE_Area OK
+SHAPE_Leng OK
+NumFloors G OK
+
+
+RetailArea OK
+
+PolicePrct G OK
+SchoolDist G OK
+SanitDistr G OK
+HealtArea OK
+FireComp G OK
+
+LandUse Color 
+Marcadores com informações básicas: nome do dono, endereço e etc.
+
+2192088
+0
