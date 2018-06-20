@@ -1,5 +1,3 @@
-
-
 var mymap = L.map('map').setView([40.773573,-73.9480237], 12);
 
 var color = d3.scaleOrdinal().domain(["01","02","03","04","05","06","07","08","09","10","11",""])
@@ -19,7 +17,7 @@ shp("http://localhost:8080/mn_mappluto_17v1_1.zip").then(function(geojson){
   var features = geojson[1].features.slice(0,15000);
   var cf = crossfilter(features);
       
-      //console.log(geojson[1].features);
+      console.log(geojson[1].features);
       //console.log(cf.size());
 
   var geomDimension = cf.dimension(function(d) {
@@ -284,7 +282,37 @@ shp("http://localhost:8080/mn_mappluto_17v1_1.zip").then(function(geojson){
             return true;
           }
           break;
+        }/*
+        if(zoom ==12){
+          if(feature.properties.SHAPE_Area>6000 && feature.geometry.bbox[0]>Oeste && feature.geometry.bbox[2]<Leste
+              && feature.geometry.bbox[1]>Sul  && feature.geometry.bbox[1]<Norte){
+            //console.log(feature.properties.SHAPE_Area);
+            return true;
+          }
         }
+        if(zoom >12 && zoom <15){
+          if(feature.properties.SHAPE_Area>4000 && feature.geometry.bbox[0]>Oeste && feature.geometry.bbox[2]<Leste
+              && feature.geometry.bbox[1]>Sul  && feature.geometry.bbox[1]<Norte
+
+            ){
+
+            //console.log(feature.geometry.bbox[0]+" > "+b);
+            return true;
+          }
+        }
+        if(zoom >14 && zoom <18){
+          if(feature.properties.SHAPE_Area>2000 && feature.geometry.bbox[0]>Oeste && feature.geometry.bbox[2]<Leste
+              && feature.geometry.bbox[1]>Sul  && feature.geometry.bbox[1]<Norte
+
+            ){
+            //console.log(feature.properties.SHAPE_Area);
+            //console.log(feature.geometry.bbox[0]+" > "+b);
+            return true;
+          }
+        }
+        if(zoom ==18 && feature.geometry.bbox[0]<b){
+          return true;
+        }*/
         
     },
     style: function(feature){
@@ -302,7 +330,19 @@ shp("http://localhost:8080/mn_mappluto_17v1_1.zip").then(function(geojson){
   onEachFeature: function (feature, layer) {
         layer.bindPopup("Nome e Endereço do Proprietário: "+feature.properties.OwnerName+" CEP do Lote: "+feature.properties.ZipCode);
     }
-}).addTo(mymap);
+}
+  /*,{style: function(feature){
+      //console.log(feature.properties.LandUse);
+      //console.log(color(feature.properties.LandUse));
+      console.log("style");
+      return {
+        weight: 2,
+        opacity: 1,
+        color: color(feature.properties.LandUse),
+        
+        fillOpacity: 0.9
+      };
+  }}*/).addTo(mymap);
 
   
 
@@ -343,7 +383,7 @@ shp("http://localhost:8080/mn_mappluto_17v1_1.zip").then(function(geojson){
     
     geoJsonLayer.addData({
       type: 'FeatureCollection',
-      features: geomDimension.top(Infinity)
+      features: geomDimension.top(Infinity)//colocar aqui função que pega o nível de zoom e atualiza.
     });
     //mymap.fitBounds(mymap.getBounds());
   }
