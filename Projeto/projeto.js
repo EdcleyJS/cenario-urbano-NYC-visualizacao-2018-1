@@ -181,7 +181,8 @@ shp("http://localhost:8080/mn_mappluto_17v1_1.zip").then(function(geojson){
           .dimension(dimNumFloors)
           .group(weaponNumFloors);       
   
-/*  var chart8 = dc.barChart("#graph8");
+  var chart8 = dc.barChart("#graph8");
+  
     chart8.width(450)
           .height(200)
           .x(d3.scaleLinear().domain([1,35]))
@@ -190,7 +191,7 @@ shp("http://localhost:8080/mn_mappluto_17v1_1.zip").then(function(geojson){
           .xAxisLabel("Nº do Distrito Policial")
           .dimension(dimPolicePrct)
           .group(weaponPolicePrct);      
-
+/*
   var chart9 = dc.barChart("#graph9");
     chart9.width(450)
           .height(200)

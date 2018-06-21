@@ -33,7 +33,7 @@
     <link rel="stylesheet" href="./dc-addons-master/dist/dc-addons.min.css"/>
     <!--<script src="./dc-addons-master/dist/dc-addons.min.js"></script>-->
     <!--<script type="text/javascript" src="https://unpkg.com/default-passive-events"></script>-->
-    <link rel="icon" type="image/x-icon" href="./paper.png" />
+    <link rel="icon" type="image/x-icon" href="./img/paper.png" />
   </head>
   <body   >
 
@@ -47,42 +47,7 @@
       </div>-->
       <div class="row" >
         <div class="col-sm-4">
-          <div class="tabbable" style="margin-bottom: 18px;">
-              <ul class="nav nav-tabs">
-                <li class="active"><a href="#tab1" data-toggle="tab">Section 1</a></li>
-                <li class=""><a href="#tab2" data-toggle="tab">Section 2</a></li>
-                <li class=""><a href="#tab3" data-toggle="tab">Section 3</a></li>
-              </ul>
-              <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
-                <div class="tab-pane active" id="tab1">
-                  <h4>Número de Edifícios Construídos Por Ano</h4>
-                  <div id="graph2" ></div>
-                </div>
-                <div class="tab-pane" id="tab2">
-                  <h4>Primeira Alteração de Edifícios Por Ano</h4>
-                  <div id="graph3" ></div>
-                </div>
-                <div class="tab-pane" id="tab3">
-                  <h4>Segunda Alteração de Edifícios Por Ano</h4>
-                  <div id="graph4" ></div>
-                </div>
-              </div>
-            </div>
-          <div id="G1">
-            
-          </div>
-          <div id="G2">
-            <h4>Primeira Alteração de Edifícios Por Ano</h4>
-            <div id="graph3" ></div>
-          </div>
-        </div>
-        <div class="col-sm-4">
           
-        </div>
-        <div class="col-sm-4">
-          <div id="G3">
-            
-          </div>
         </div>
       </div>
       <div class="row">
@@ -99,7 +64,71 @@
           <div id="map" ></div>
         </div>
         <div class="col-sm-4">
-          <div>
+          <div class="tabbable" style="margin-bottom: 18px;">
+              <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab1" data-toggle="tab">Construção Edifícios</a></li>
+                <li class=""><a href="#tab2" data-toggle="tab">1ª Alteração</a></li>
+                <li class=""><a href="#tab3" data-toggle="tab">2ª Alteração</a></li>
+              </ul>
+              <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
+                <div class="tab-pane active" id="tab1">
+                  <h4>Número de Edifícios Construídos Por Ano</h4>
+                  <div id="graph2" ></div>
+                </div>
+                <div class="tab-pane" id="tab2">
+                  <h4>Primeira Alteração de Edifícios Por Ano</h4>
+                  <div id="graph3" ></div>
+                </div>
+                <div class="tab-pane" id="tab3">
+                  <h4>Segunda Alteração de Edifícios Por Ano</h4>
+                  <div id="graph4" ></div>
+                </div>
+              </div>
+            </div>
+            <div class="tabbable" style="margin-bottom: 18px;">
+              <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab4" data-toggle="tab">Nível de Pisos</a></li>
+                <li class=""><a href="#tab5" data-toggle="tab">Rentabilidade</a></li>
+                <li class=""><a href="#tab6" data-toggle="tab">Área</a></li>
+              </ul>
+              <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
+                <div class="tab-pane active" id="tab4">
+                  <h4>Estrutura de Pisos dos Edifícios Por Ano</h4>
+                  <div id="graph7"></div>
+                </div>
+                <div class="tab-pane" id="tab5">
+                  <h4>Índice de Rentabilidade</h4>
+                  <div id="graph11" ></div>
+                </div>
+                <div class="tab-pane" id="tab6">
+                  <h4>Comprimento da Área</h4>
+                  <div id="graph5" ></div>
+                </div>
+              </div>
+            </div>
+            <div class="tabbable" style="margin-bottom: 18px;">
+              <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab7" data-toggle="tab">Saúde</a></li>
+                <li class=""><a href="#tab8" data-toggle="tab">Policiamento</a></li>
+                <li class=""><a href="#tab9" data-toggle="tab">Escolas</a></li>
+              </ul>
+              <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
+                <div class="tab-pane active" id="tab7">
+                  <h4>Índice de Saúde</h4>
+                  <div id="graph10" ></div>
+                </div>
+                <div class="tab-pane" id="tab8">
+                  <h4>Número de Edifícios Atendidos Por Distrito Policial</h4>
+                  <div id="graph8"></div>
+                </div>
+                <div class="tab-pane" id="tab9">
+                  <h4>Edifícios Atendidos Por Escola do Distrito</h4>
+                  <div id="graph9"></div>
+                  
+                </div>
+              </div>
+            </div>
+          <!--<div>
             <input type="radio" name="visualizacao" value="01" onclick="exibiVisualizacao()" id="V1" checked> Nº de Edifícios
             <input type="radio" name="visualizacao" value="02" onclick="exibiVisualizacao()" id="V2"> 1ª Alteração de Edifícios
             <input type="radio" name="visualizacao" value="03" onclick="exibiVisualizacao()" id="V3"> 2ª Alteração de Edifícios
@@ -109,20 +138,7 @@
           <h4>Taxa de Saúde por Edifícios</h4>
           <div id="graph10" ></div>
           <h4>Índice de Rentabilidade dos Edifícios</h4>
-          <div id="graph11" ></div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-4">  
-          <h4>Comprimento da Área</h4>
-          <div id="graph5" ></div>
-        </div>
-        <div class="col-sm-4">
-          
-        </div>
-        <div class="col-sm-4">
-          <h4>Comprimento da Forma</h4>
-          <div id="graph6" ></div>
+          <div id="graph11" ></div>-->
         </div>
       </div>
     </div>
