@@ -23,7 +23,7 @@ var chart,chart2,chart3,chart4,chart5,chart6,chart7,chart8,chart9,chart10,chart1
 var zoom,a,Leste,Oeste,Norte,Sul;
 
 //Função para converter um arquivo .zip que contém shape files em Geojson.
-shp("http://localhost:8080/mn_mappluto_17v1_1.zip").then(function(geojson){
+shp("./mn_mappluto_17v1_1.zip").then(function(geojson){
       
   features = geojson[1].features.slice(0,42638);
   cf = crossfilter(features);
