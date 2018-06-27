@@ -1,0 +1,18 @@
+YearBuilt G OK OK
+YearAlter1 G OK OK
+YearAlter2 G OK OK
+SHAPE_Area OK OK
+SHAPE_Leng OK OK
+NumFloors G OK OK
+
+
+RetailArea OK OK
+
+PolicePrct G OK OK
+SchoolDist G OK OK
+SanitDistr G OK OK
+HealtArea OK OK
+FireComp G OK OK
+
+LandUse Color 
+Marcadores com informações básicas: nome do dono, endereço e etc.

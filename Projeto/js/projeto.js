@@ -39,11 +39,11 @@ shp("http://localhost:8080/mn_mappluto_17v1_1.zip").then(function(geojson){
   weaponDimFireComp= dimFireComp.group();
 
   dimRetailArea= cf.dimension(function(d){
-    if(d.properties.RetailArea < 500) return '0-499';
-    if(d.properties.RetailArea   >= 500 && d.properties.RetailArea   < 1000) return '500-999';
-    if(d.properties.RetailArea   >= 1000 && d.properties.RetailArea   < 1500) return '1000-1499';
-    if(d.properties.RetailArea   >= 1500 && d.properties.RetailArea   < 2999) return '1500-2999';
-    if(d.properties.RetailArea   >= 3000 ) return '+3000';
+    if(d.properties.RetailArea < 400) return '0 - 0.4k';
+    if(d.properties.RetailArea   >= 400 && d.properties.RetailArea   < 1000) return '0.4k - 1.0k';
+    if(d.properties.RetailArea   >= 1000 && d.properties.RetailArea   < 1500) return '1.0k - 1.5k';
+    if(d.properties.RetailArea   >= 1500 && d.properties.RetailArea   < 2999) return '1.5k - 3.0k';
+    if(d.properties.RetailArea   >= 3000 ) return '+3.0k';
   }); 
   weaponDimRetailArea= dimRetailArea.group();
   
@@ -63,10 +63,12 @@ shp("http://localhost:8080/mn_mappluto_17v1_1.zip").then(function(geojson){
   weaponDimYearAlter2= dimYearAlter2.group();
       
   dimSHAPE_Area= cf.dimension(function(d){
-    if(d.properties.SHAPE_Area >= 0 && d.properties.SHAPE_Area < 499) return '0-499';
-    if(d.properties.SHAPE_Area >= 500 && d.properties.SHAPE_Area < 4999) return '500-4999';
-    if(d.properties.SHAPE_Area >= 5000 && d.properties.SHAPE_Area < 49999) return '5000-49999';
-    if(d.properties.SHAPE_Area >= 50000 ) return '50000-4999999';
+    if(d.properties.SHAPE_Area >= 0 && d.properties.SHAPE_Area <= 2000) return '0 - 2.0k';
+    if(d.properties.SHAPE_Area > 2000 && d.properties.SHAPE_Area <= 3000) return '2.0k - 3.0k';
+    if(d.properties.SHAPE_Area > 3000 && d.properties.SHAPE_Area <= 4000) return '3.0k - 4.0k';
+    if(d.properties.SHAPE_Area > 4000 && d.properties.SHAPE_Area <= 5000) return '4.0k - 5.0k';
+    if(d.properties.SHAPE_Area > 5000 && d.properties.SHAPE_Area <= 6000) return '5.0k - 6.0k';
+    if(d.properties.SHAPE_Area >= 6000 ) return '+6.0k';
   });
   weaponDimSHAPE_Area= dimSHAPE_Area.group();
   //console.log(dimSHAPE_Area.top(1));
@@ -91,7 +93,10 @@ shp("http://localhost:8080/mn_mappluto_17v1_1.zip").then(function(geojson){
   weaponPolicePrct= dimPolicePrct.group();
   
   dimSchoolDist= cf.dimension(function(d){
-    return d.properties.SchoolDist;
+    if(d.properties.SchoolDist==""){
+      return "Undef";
+    }else{
+    return d.properties.SchoolDist;}
   });
   weaponSchoolDist= dimSchoolDist.group();      
 
@@ -106,24 +111,28 @@ shp("http://localhost:8080/mn_mappluto_17v1_1.zip").then(function(geojson){
   weaponDimLandUse= dimLandUse.group().reduceCount();
 
   dimHealthArea= cf.dimension(function(d){
-    if(d.properties.HealthArea < 500){ return '0-499'}
-    if(d.properties.HealthArea  >= 500 && d.properties.HealthArea  < 1500) return '500-1499';
-    if(d.properties.HealthArea  >= 1500 && d.properties.HealthArea  < 3500) return '1500-3499';
-    if(d.properties.HealthArea  >= 3500 && d.properties.HealthArea  < 5000) return '3500-4999';
-    if(d.properties.HealthArea  >= 5000 && d.properties.HealthArea  < 6500) return '5000-6499';
-    if(d.properties.HealthArea  >= 6500) return '6500-9100';
+    if(d.properties.HealthArea < 500){ return '0 - 0.5k'}
+    if(d.properties.HealthArea  >= 500 && d.properties.HealthArea  < 1500) return '0.5k - 1.5k';
+    if(d.properties.HealthArea  >= 1500 && d.properties.HealthArea  < 3500) return '1.5k - 3.5k';
+    if(d.properties.HealthArea  >= 3500 && d.properties.HealthArea  < 5000) return '3.5k - 5.0k';
+    if(d.properties.HealthArea  >= 5000 && d.properties.HealthArea  < 6500) return '5.0k - 6.5k';
+    if(d.properties.HealthArea  >= 6500) return '+6.5k';
   });
   weaponDimHealthArea= dimHealthArea.group();
 
   //Criação dos Plots de Visualização com Base dc.js
+  //console.log(dimYearBuilt.top(5)[0].properties.YearBuilt);
   chart = dc.barChart("#graph2").width(450)
           .height(200)
-          .x(d3.scaleLinear().domain([1880,2000]))
+          .x(d3.scaleLinear().domain([1900,2017]))
           .brushOn(true)
           .yAxisLabel("Quantidade")
           .xAxisLabel("Ano")
           .dimension(dimYearBuilt)
-          .group(weaponDimYearBuilt);
+          .group(weaponDimYearBuilt)
+          .elasticY(true);
+  chart.yAxis().tickFormat(d3.format(".2s"));
+  chart.xAxis().tickFormat(d3.format("d"));
 
   chart2 = dc.barChart("#graph3").width(450)
           .height(200)
@@ -132,7 +141,10 @@ shp("http://localhost:8080/mn_mappluto_17v1_1.zip").then(function(geojson){
           .yAxisLabel("Quantidade de Alterações")
           .xAxisLabel("Ano")
           .dimension(dimYearAlter1)
-          .group(weaponDimYearAlter1);
+          .group(weaponDimYearAlter1)
+          .elasticY(true);
+  chart2.yAxis().tickFormat(d3.format(".2s"));
+  chart2.xAxis().tickFormat(d3.format("d"));
 
   chart3 = dc.barChart("#graph4").width(450)
           .height(200)
@@ -141,7 +153,11 @@ shp("http://localhost:8080/mn_mappluto_17v1_1.zip").then(function(geojson){
           .yAxisLabel("Quantidade de Alterações")
           .xAxisLabel("Ano")
           .dimension(dimYearAlter2)
-          .group(weaponDimYearAlter2);
+          .group(weaponDimYearAlter2)
+          .elasticY(true)
+          ;
+  chart3.yAxis().tickFormat(d3.format(".2s"));
+  chart3.xAxis().tickFormat(d3.format("d"));
 /*
   chart4 = dc.pieChart("#graph").width(200)
           .height(200)
@@ -154,13 +170,14 @@ shp("http://localhost:8080/mn_mappluto_17v1_1.zip").then(function(geojson){
   chart5 = dc.barChart("#graph5").width(450)
           .height(200)
           .brushOn(true)
-          .x(d3.scaleOrdinal().domain(["0-499","500-4999","5000-49999","50000-4999999"]))
+          .x(d3.scaleOrdinal().domain(["0 - 2.0k","2.0k - 3.0k","3.0k - 4.0k","4.0k - 5.0k","5.0k - 6.0k","+6.0k"]))
           .xUnits(dc.units.ordinal)
           .yAxisLabel("Numero de Lotes")
           .xAxisLabel("Comprimento da Area em m2")
           .dimension(dimSHAPE_Area)
-          .group(weaponDimSHAPE_Area);
-          
+          .group(weaponDimSHAPE_Area)
+          .elasticY(true);
+  chart5.yAxis().tickFormat(d3.format(".2s"));
   /*chart6 = dc.barChart("#graph6").width(450)
           .height(200)
           .x(d3.scaleOrdinal().domain(["0-40","40-399","400-3999","4000-36615"]))
@@ -178,7 +195,9 @@ shp("http://localhost:8080/mn_mappluto_17v1_1.zip").then(function(geojson){
           .yAxisLabel("Número de Lotes")
           .xAxisLabel("Número de Pisos")
           .dimension(dimNumFloors)
-          .group(weaponNumFloors);       
+          .group(weaponNumFloors)
+          .elasticY(true);
+  chart7.yAxis().tickFormat(d3.format(".2s"));       
   
   chart8 = dc.barChart("#graph8").width(450)
           .height(200)
@@ -187,37 +206,46 @@ shp("http://localhost:8080/mn_mappluto_17v1_1.zip").then(function(geojson){
           .yAxisLabel("Áreas Atendidos")
           .xAxisLabel("Nº do Distrito Policial")
           .dimension(dimPolicePrct)
-          .group(weaponPolicePrct);      
+          .group(weaponPolicePrct)
+          .elasticY(true); 
+  chart8.yAxis().tickFormat(d3.format(".2s"));     
 
   chart9 = dc.barChart("#graph9").width(450)
           .height(200)
-          .x(d3.scaleOrdinal().domain(["","01","02","03","04","05","06","10"]))
+          .x(d3.scaleOrdinal().domain(["Undef","01","02","03","04","05","06","10"]))
           .xUnits(dc.units.ordinal)
           .brushOn(true)
           .yAxisLabel("Nº de Áreas Atendidas")
           .xAxisLabel(" Nº da Escola Responsavel")
           .dimension(dimSchoolDist)
-          .group(weaponSchoolDist);
+          .group(weaponSchoolDist)
+          .elasticY(true);
+  chart9.yAxis().tickFormat(d3.format(".2s"));
+
 
   chart10 = dc.barChart("#graph10").width(450)
           .height(200)
-          .x(d3.scaleOrdinal().domain(["0-499","500-1499","1500-3499","3500-4999","5000-6499","6500-9100"]))
+          .x(d3.scaleOrdinal().domain(["0 - 0.5k","0.5k - 1.5k","1.5k - 3.5k","3.5k - 5.0k","5.0k - 6.5k","+6.5k"]))
           .xUnits(dc.units.ordinal)
           .brushOn(true)
           .yAxisLabel("Números de Áreas")
           .xAxisLabel("Índice de Saúde")
           .dimension(dimHealthArea)
-          .group(weaponDimHealthArea);
+          .group(weaponDimHealthArea)
+          .elasticY(true);
+  chart10.yAxis().tickFormat(d3.format(".2s"));
 
   chart11 = dc.barChart("#graph11").width(450)
           .height(200)
-          .x(d3.scaleOrdinal().domain(["0-499","500-999","1000-1499","1500-2999","+3000"]))
+          .x(d3.scaleOrdinal().domain(["0 - 0.4k","0.4k - 1.0k","1.0k - 1.5k","1.5k - 3.0k","+3.0k"]))
           .xUnits(dc.units.ordinal)
           .brushOn(true)
           .yAxisLabel("Números de Áreas")
           .xAxisLabel("Índice de Rentabilidade")
           .dimension(dimRetailArea)
-          .group(weaponDimRetailArea);
+          .group(weaponDimRetailArea)
+          .elasticY(true);
+  chart11.yAxis().tickFormat(d3.format(".2s"));
 
   geoJsonLayer = L.geoJson({
     type: 'FeatureCollection',
