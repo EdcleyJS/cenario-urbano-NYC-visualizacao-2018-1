@@ -311,7 +311,7 @@ shp("http://localhost:8080/mn_mappluto_17v1_1.zip").then(function(geojson){
   },
   onEachFeature: function (feature, layer) {
         //Criação do Popup de cada feature/polígono contendo o nome do proprietário e o cep de localização do edíficio/lote.
-        layer.bindPopup("Nome e Endereço do Proprietário: "+feature.properties.OwnerName+" CEP do Lote: "+feature.properties.ZipCode);
+        layer.bindPopup("Nome e Endereço do Proprietário: <b>"+feature.properties.OwnerName+"</b><br> CEP do Lote: <b>"+feature.properties.ZipCode+"</b><br> "+"Código do Lote: <b>"+feature.properties.BBL+"</b>");
     }
 }).addTo(mymap);
 
